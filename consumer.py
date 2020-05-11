@@ -66,8 +66,7 @@ class Consumer(multiprocessing.Process):
                 output_file.write(output_csv + "\n")
                 # Flush right away as any buffering can cause in-consistent or corrupted data
                 output_file.flush()
-            except Exception as e:
-                logger.error(e, exc_info=True)
+            except:
                 record_error("error_writing_results")
-
+                raise
 
