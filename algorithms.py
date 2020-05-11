@@ -33,7 +33,11 @@ class ImageHashAlgorithm(Algorithm):
     def get_similarity(self, image_1, image_2):
         hash_1 = self.hash_func(Image.open(image_1))
         hash_2 = self.hash_func(Image.open(image_2))
-        return hash_1 - hash_2
+        diff_bits = hash_1 - hash_2
+        normalized_diff = round(diff_bits/64, 3)
+        normalized_similarity = 1 - normalized_diff
+        return normalized_similarity
+
 
 
 algorithm_dict = {}

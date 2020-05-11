@@ -14,7 +14,7 @@ class AsyncProcessor(object):
         self.write_output_lock = multiprocessing.Lock()
         self.num_consumers = multiprocessing.cpu_count() * 2
         millis = int(round(time.time() * 1000))
-        self.consumers = [Consumer(self.tasks_queue, ("output-%d.csv" % millis), self.write_output_lock)
+        self.consumers = [Consumer(self.tasks_queue, ("results/output-%d.csv" % millis), self.write_output_lock)
                           for i in range(self.num_consumers)]
         logger.info('Starting %d consumers' % self.num_consumers)
         for w in self.consumers:

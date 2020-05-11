@@ -6,6 +6,7 @@ COPY *.py ./
 COPY requirements.txt .
 COPY images.csv .
 COPY images ./images/
+COPY results ./results/
 
 RUN pip install -r requirements.txt
 
