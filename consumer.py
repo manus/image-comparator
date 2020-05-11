@@ -33,7 +33,7 @@ class Consumer(multiprocessing.Process):
                 try:
                     output_csv = self.process_image_comparision(next_task)
                     self.save_result(output_file, output_csv)
-                except Exception as e:
+                except BaseException as e:
                     logger.error(e, exc_info=True)
                     record_error("error_processing_comparison")
 

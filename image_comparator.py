@@ -54,7 +54,7 @@ if __name__ == '__main__':
                         continue
 
                     async_worker.queue_image_comparison(row["image1"], row["image2"])
-                except Exception as e:
+                except BaseException as e:
                     logger.error(e, exc_info=True)
                     record_error("error_starting_comparison")
 
