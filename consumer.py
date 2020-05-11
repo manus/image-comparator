@@ -65,6 +65,7 @@ class Consumer(multiprocessing.Process):
                 # Using "\n" as line separator (https://docs.python.org/3/library/os.html#os.linesep)
                 output_file.write(output_csv + "\n")
                 # Flush right away as any buffering can cause in-consistent or corrupted data
+                # https://stackoverflow.com/questions/7842511/safe-to-have-multiple-processes-writing-to-the-same-file-at-the-same-time-cent
                 output_file.flush()
             except:
                 record_error("error_writing_results")
