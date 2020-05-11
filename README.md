@@ -4,6 +4,12 @@
 
 <img src="./design.svg">
 
+Technical choices for components:
+
+* Queue - Python multiprocessing module shared joinable queue
+* Consumers - Python multiprocessing module to distribute asynchronous tasks
+* Storage - File system with shared distributed lock from python multiprocessing module
+
 ## Installation
 
 Docker (Windows, Linux, MacOS)
