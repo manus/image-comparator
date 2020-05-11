@@ -1,17 +1,10 @@
-###############
-image_comparator
-###############
+# image_comparator
 
-============
-Design 
-============
+## Design
 
-![Alt text](./design.svg)
 <img src="./design.svg">
 
-============
-Installation
-============
+## Installation
 
 Virtualenv
 ----------
