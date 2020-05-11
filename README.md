@@ -38,5 +38,6 @@ Copy your images to the 'images' folder. Edit 'images.csv', leave the header and
 
 - In 'images.csv', use 'images/' prefix with all image paths. It is relative path since images are inside 'images' folder.
 - Absolute paths would work too. But these would be different when running on your host machine and inside the docker container (working directory inside docker container is '/usr/src/app').  
-- You can use a different folder to save images and a different name for the input csv file. The csv file should have the 2 headers (image1, image2). If using docker container, you will need to update the 'Dockerfile' to copy the new folder and new csv file into the container. After that you will need to rebuild the docker image before running (``docker build --tag image_comparator:1.0 .``) 
+- You can use a different folder to save images and a different name for the input csv file. The csv file should have the 2 headers (image1, image2). If using docker container, you will need to update the 'Dockerfile' to copy the new folder and new csv file into the container.
+- If using docker, everytime a change is made, you will need to rebuild the docker image before running (``docker build --tag image_comparator:1.0 .``) 
 
