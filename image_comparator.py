@@ -8,6 +8,7 @@ import sys
 from async_processor import AsyncProcessor
 import os
 import logging
+import time
 from metrics import record_error
 logging.basicConfig(format='%(asctime)s - %(process)d - %(name)s - %(levelname)s - %(message)s',
                     level=os.environ.get("LOGLEVEL", "INFO"))
@@ -43,7 +44,20 @@ if __name__ == '__main__':
         logger.error(f'File not found {csv_path}')
         sys.exit(1)
 
-    async_worker = AsyncProcessor()
+    # If unable to create output file, exit
+    time_in_millis = int(round(time.time() * 1000))
+    output_file_name = "results/output-%d.csv" % time_in_millis
+    with open(output_file_name, mode='a') as output_file:
+        try:
+            header_columns = "image1,image2,similar,elapsed"
+            output_file.write(header_columns + "\n")
+            output_file.flush()
+        except BaseException as e:
+            logger.error(e, exc_info=True)
+            record_error("error_output_init")
+            sys.exit(1)
+
+    async_worker = AsyncProcessor(output_file_name)
     with open(csv_path, mode='r') as csv_file:
             csv_reader = csv.DictReader(csv_file)
             for row in csv_reader:
