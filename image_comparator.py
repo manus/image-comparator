@@ -11,7 +11,7 @@ import logging
 import time
 from metrics import record_error
 logging.basicConfig(format='%(asctime)s - %(process)d - %(name)s - %(levelname)s - %(message)s',
-                    level=os.environ.get("LOGLEVEL", "INFO"))
+                    level=os.environ.get("LOGLEVEL", "DEBUG"))
 
 logger = logging.getLogger(__name__)
 

@@ -52,9 +52,11 @@ class Consumer(multiprocessing.Process):
     def process_image_comparision(self, callable_task):
         try:
             output_csv = callable_task()
+            logger.debug("Successfully completed task %s ", callable_task)
             return output_csv
         except:
             # Preserving stacktrace
+            logger.error("Failed completing task %s ", callable_task)
             record_error("error_calculating_similarity")
             raise
 
