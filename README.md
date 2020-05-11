@@ -6,15 +6,7 @@
 
 ## Installation
 
-Virtualenv
-----------
-
-- run ``virtualenv venv`` to create a virtual environment
-- run ``source venv/bin/activate`` to start the virtual environment
-- run ``pip install -r requirements.txt`` to install all requirements
-- run ``python image_comparator.py images.csv`` to run image comparison on sample images (provided in 'images' folder)
-
-Docker
+Docker (Windows, Linux, MacOS)
 ------
 
 - run ``docker build --tag image_comparator:1.0 .`` to build the image
@@ -22,6 +14,14 @@ Docker
 - run ``docker run -it image_comparator:1.0`` to start the container
 - run ``python image_comparator.py images.csv`` to run image comparison on sample images provided in 'images' folder
 - Syntax to run the program is ``python image_comparator.py <image_csv_file>`` to run image comparison on sample images provided in 'images' folder
+
+Virtualenv (Linux, MacOS)
+----------
+
+- run ``virtualenv venv`` to create a virtual environment
+- run ``source venv/bin/activate`` to start the virtual environment
+- run ``pip install -r requirements.txt`` to install all requirements
+- run ``python image_comparator.py images.csv`` to run image comparison on sample images (provided in 'images' folder)
 
 Output
 -----
