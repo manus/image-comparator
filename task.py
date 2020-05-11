@@ -1,3 +1,8 @@
+"""
+The code here abstracts an asynchronous task.
+It defines a base class 'Task' which can be extended
+"""
+
 import time
 from algorithms import get_algorithm
 import config
@@ -38,6 +43,10 @@ class ImageComparisonTask(Task):
         return 'ImageComparisonTask - "%s" - "%s"' % (self.image_1, self.image_2)
 
     def is_image(self, filename):
+        """
+        For now, just checking file extension, not the actual format
+        """
+
         f = filename.lower()
         return f.endswith(".png") or f.endswith(".jpg") or \
                f.endswith(".jpeg") or f.endswith(".bmp") or \
@@ -49,7 +58,7 @@ class ImageComparisonTask(Task):
 
         """
         For exact match, a brute force algorithm would be to match images pixel by pixel
-        But the phash algorithm is able to identify exact matches prettly efficiently
+        But the phash algorithm is able to identify exact matches quite efficiently.
         So relying on phash for exact matches. It returns 1.0 for exact matches.
         The target is to return 0 for exact matches. So if result is 1.0, changing it to 0
         This will create confusion if phash actually returns 0 similarity for 2 images.

@@ -1,3 +1,10 @@
+"""
+The code here abstracts consumer capabilities for the queueing mechanism
+It consumes tasks from the queue, processes them and acknowledges that the task has been processed successfully
+As a part of the processing, it also stores data in a file
+Ideally, storage should be abstracted too, but for now it just writes to a file
+"""
+
 from __future__ import (absolute_import, division, print_function)
 import multiprocessing
 import time

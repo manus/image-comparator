@@ -1,3 +1,7 @@
+"""
+The code here defines capabilities needed for sending tasks to a queue to be processed asynchronously.
+"""
+
 import multiprocessing
 from consumer import Consumer
 from task import ImageComparisonTask

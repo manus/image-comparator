@@ -1,3 +1,8 @@
+"""
+The code here abstracts logging and reporting of metrics
+These metrics can be used to measure application performance, resilience, reliability etc
+"""
+
 import time
 import logging
 logger = logging.getLogger(__name__)

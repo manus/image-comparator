@@ -1,3 +1,8 @@
+"""
+The code here is abstracting algorithms which can be used for image comparisons
+It defines a base class 'Algorithm' which can be extended
+"""
+
 from PIL import Image
 import six
 import imagehash
