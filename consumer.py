@@ -43,8 +43,13 @@ class Consumer(multiprocessing.Process):
 
     @time_method
     def process_image_comparision(self, callable_task):
-        output_csv = callable_task()
-        return output_csv
+        try:
+            output_csv = callable_task()
+            return output_csv
+        except:
+            # Preserving stacktrace
+            record_error("error_calculating_similarity")
+            raise
 
     """
     For save_result, in an ideal world, the storage would be a database
