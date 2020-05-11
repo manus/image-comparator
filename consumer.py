@@ -77,6 +77,7 @@ class Consumer(multiprocessing.Process):
                 # https://stackoverflow.com/questions/7842511/safe-to-have-multiple-processes-writing-to-the-same-file-at-the-same-time-cent
                 output_file.flush()
             except:
+                logger.error("Failed writing output [%s] to file", output_csv)
                 record_error("error_writing_results")
                 raise
 
