@@ -15,3 +15,7 @@ def time_method(method):
 
 def record_time(metric_name, time_in_millis):
     logger.info("METRIC - %s - %d ms", metric_name, time_in_millis)
+
+
+def record_error(metric_name):
+    logger.error("METRIC ERRORED - %s", metric_name)

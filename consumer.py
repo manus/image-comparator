@@ -1,7 +1,7 @@
 from __future__ import (absolute_import, division, print_function)
 import multiprocessing
 import time
-from metrics import time_method, record_time
+from metrics import time_method, record_time, record_error
 import logging
 logger = logging.getLogger(__name__)
 
@@ -16,6 +16,7 @@ class Consumer(multiprocessing.Process):
 
     def run(self):
         proc_name = self.name
+        logger.info('%s: Starting' % proc_name)
         with open(self.output_file_name, mode='a') as output_file:
             while True:
                 next_task = self.task_queue.get()
@@ -27,8 +28,16 @@ class Consumer(multiprocessing.Process):
                 task_millis_in_queue = (time.time() - next_task.create_time) * 1000
                 record_time("time_in_queue", task_millis_in_queue)
                 logger.info('%s processing task : %s' % (proc_name, next_task))
-                output_csv = self.process_image_comparision(next_task)
-                self.save_result(output_file, output_csv)
+
+                # No retries for now. Try once and continue
+                try:
+                    output_csv = self.process_image_comparision(next_task)
+                    self.save_result(output_file, output_csv)
+                except Exception as e:
+                    # logger.error(e, exc_info=True)
+                    record_error("error_processing_comparison")
+
+                # acknowledge message after everything is done
                 self.task_queue.task_done()
         return
 
@@ -40,7 +49,11 @@ class Consumer(multiprocessing.Process):
     @time_method
     def save_result(self, output_file, output_csv):
         with self.write_output_lock:
-            output_file.write(output_csv + "\n")
-            output_file.flush()
+            try:
+                output_file.write(output_csv + "\n")
+                output_file.flush()
+            except Exception as e:
+                logger.error(e, exc_info=True)
+                record_error("error_writing_results")
 
 
