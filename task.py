@@ -48,9 +48,25 @@ class ImageComparisonTask(Task):
             if not self.is_image(self.image_1) or not self.is_image(self.image_2):
                 raise Exception('Invalid image file')
 
+            """
+            For exact match, a brute force algorithm would be to match images pixel by pixel
+            But the phash algorithm is able to identify exact matches prettly efficiently
+            So relying on phash for exact matches. It returns 1.0 for exact matches.
+            The target is to return 0 for exact matches. So if result is 1.0, changing it to 0
+            This will create confusion if phash actually returns 0 similarity for 2 images.
+            So changing 0 similarity to -1 (although this would be vary rare that 2 images have 0 similarity) 
+            """
             algorithm = get_algorithm(config.DEFAULT_IMAGE_COMPARISON_ALGORITHM)
-            return algorithm.get_similarity(self.image_1, self.image_2)
+            similarity = algorithm.get_similarity(self.image_1, self.image_2)
+            if similarity == 0:
+                return -1
+            elif similarity == 1:
+                return 0
+            else:
+                return similarity;
+
         except:
+            # Preserving stacktrace
             record_error("error_calculating_similarity")
             raise
 

@@ -49,10 +49,7 @@ if __name__ == '__main__':
             for row in csv_reader:
                 # No retries for now. Try once and continue
                 try:
-                    image_1 = row["image1"]
-                    image_2 = row["image2"]
-
-                    if image_1 is None or image_2 is None:
+                    if row["image1"] is None or row["image2"] is None:
                         record_error("error_image_none")
                         continue
 

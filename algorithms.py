@@ -29,7 +29,7 @@ class ImageHashAlgorithm(Algorithm):
         elif hash_method == 'whash-db4':
             hash_func = lambda img: imagehash.whash(img, mode='db4')
         return hash_func
-
+    
     def get_similarity(self, image_1, image_2):
         hash_1 = self.hash_func(Image.open(image_1))
         hash_2 = self.hash_func(Image.open(image_2))

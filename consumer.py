@@ -34,7 +34,7 @@ class Consumer(multiprocessing.Process):
                     output_csv = self.process_image_comparision(next_task)
                     self.save_result(output_file, output_csv)
                 except Exception as e:
-                    # logger.error(e, exc_info=True)
+                    logger.error(e, exc_info=True)
                     record_error("error_processing_comparison")
 
                 # acknowledge message after everything is done
@@ -46,11 +46,20 @@ class Consumer(multiprocessing.Process):
         output_csv = callable_task()
         return output_csv
 
+    """
+    For save_result, in an ideal world, the storage would be a database
+    We would just have a connection to the database, with re-connect logic if connection drops
+    Locking would be provided by the database
+    """
     @time_method
     def save_result(self, output_file, output_csv):
+
+        # Use shared lock as this is a shared file opened in append mode by multiple consumers
         with self.write_output_lock:
             try:
+                # Using "\n" as line separator (https://docs.python.org/3/library/os.html#os.linesep)
                 output_file.write(output_csv + "\n")
+                # Flush right away as any buffering can cause in-consistent or corrupted data
                 output_file.flush()
             except Exception as e:
                 logger.error(e, exc_info=True)
