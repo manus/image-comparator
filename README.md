@@ -3,6 +3,13 @@ image_comparator
 ###############
 
 ============
+Design 
+============
+
+![Alt text](./design.svg)
+<img src="./design.svg">
+
+============
 Installation
 ============
 
