@@ -9,6 +9,7 @@ Technical choices for components:
 * Queue - Python multiprocessing module shared joinable queue
 * Consumers - Python multiprocessing module to distribute asynchronous tasks
 * Storage - File system with shared distributed lock from python multiprocessing module
+* Algorithm - [ImageHash](https://pypi.org/project/ImageHash/)
 
 ## Installation
 
